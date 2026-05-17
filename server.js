@@ -5,6 +5,8 @@ require("dotenv").config();
 
 const authRoutes = require("./routes/authRoutes");
 const restaurantRoutes = require("./routes/restaurantRoutes");
+const menuRoutes = require("./routes/menuRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 
 const app = express();
 
@@ -13,6 +15,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/restaurants", restaurantRoutes);
+app.use("/api/menu", menuRoutes);
 
 app.get("/", (req, res) => {
   res.send("Food Delivery API Running...");
