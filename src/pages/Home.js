@@ -110,7 +110,8 @@ function Home() {
           justifyContent: "space-between",
           alignItems: "center",
           padding: "20px",
-          backgroundColor: "black",
+          background:
+            "linear-gradient(to right, #ff416c, #ff4b2b)",
           color: "white"
         }}
       >
@@ -365,7 +366,9 @@ function Home() {
                   border: "1px solid gray",
                   padding: "20px",
                   borderRadius: "10px",
-                  width: "250px"
+                  width: "250px",
+                  boxShadow: "0px 0px 10px gray",
+                  transition: "0.3s"
                 }}
               >
 
@@ -436,7 +439,8 @@ function Home() {
                 border: "1px solid gray",
                 padding: "20px",
                 borderRadius: "10px",
-                width: "300px"
+                width: "300px",
+                boxShadow: "0px 0px 10px gray"
               }}
             >
               <h3>Geetha ⭐⭐⭐⭐⭐</h3>
@@ -451,7 +455,8 @@ function Home() {
                 border: "1px solid gray",
                 padding: "20px",
                 borderRadius: "10px",
-                width: "300px"
+                width: "300px",
+                boxShadow: "0px 0px 10px gray"
               }}
             >
               <h3>Lahari ⭐⭐⭐⭐⭐</h3>
@@ -466,7 +471,8 @@ function Home() {
                 border: "1px solid gray",
                 padding: "20px",
                 borderRadius: "10px",
-                width: "300px"
+                width: "300px",
+                boxShadow: "0px 0px 10px gray"
               }}
             >
               <h3>Chintu ⭐⭐⭐⭐</h3>
@@ -502,6 +508,10 @@ function Home() {
 
         <p>
           Contact: support@fooddelivery.com
+        </p>
+
+        <p>
+          Instagram | Facebook | Twitter
         </p>
 
         <p>
