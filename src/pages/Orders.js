@@ -1,81 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Orders() {
 
   const navigate = useNavigate();
 
-  const [cartItems, setCartItems] = useState([
+  const [cartItems, setCartItems] = useState([]);
 
-    {
-      id: 1,
-      name: "Pizza 🍕",
-      price: 299
-    },
+  useEffect(() => {
 
-    {
-      id: 2,
-      name: "Burger 🍔",
-      price: 199
-    },
+    const savedCart =
+      JSON.parse(localStorage.getItem("cart")) || [];
 
-    {
-      id: 3,
-      name: "French Fries 🍟",
-      price: 99
-    },
+    setCartItems(savedCart);
 
-    {
-      id: 4,
-      name: "Biryani 🍛",
-      price: 249
-    },
+  }, []);
 
-    {
-      id: 5,
-      name: "Tacos 🌮",
-      price: 179
-    },
+  const removeItem = (index) => {
 
-    {
-      id: 6,
-      name: "Salad 🥗",
-      price: 149
-    },
+    const updatedCart = [...cartItems];
 
-    {
-      id: 7,
-      name: "Pasta 🍝",
-      price: 229
-    },
-
-    {
-      id: 8,
-      name: "Sandwich 🥪",
-      price: 129
-    },
-
-    {
-      id: 9,
-      name: "Ice Cream 🍨",
-      price: 99
-    },
-
-    {
-      id: 10,
-      name: "Noodles 🍜",
-      price: 189
-    }
-
-  ]);
-
-  const removeItem = (id) => {
-
-    const updatedCart = cartItems.filter(
-      (item) => item.id !== id
-    );
+    updatedCart.splice(index, 1);
 
     setCartItems(updatedCart);
+
+    localStorage.setItem(
+      "cart",
+      JSON.stringify(updatedCart)
+    );
 
     alert("Item Removed ❌");
 
@@ -112,27 +64,35 @@ function Orders() {
         {
           cartItems.length === 0 ? (
 
-            <h2>Your Cart Is Empty 🛒</h2>
+            <div>
+
+              <h2>Your Cart Is Empty 🛒</h2>
+
+              <p>Add some delicious food!</p>
+
+            </div>
 
           ) : (
 
-            cartItems.map((item) => (
+            cartItems.map((item, index) => (
 
-              <div key={item.id}>
+              <div key={index}>
 
                 <h2>{item.name}</h2>
 
                 <p>Price: ₹{item.price}</p>
 
                 <button
-                  onClick={() => removeItem(item.id)}
+                  onClick={() => removeItem(index)}
                   style={{
                     padding: "10px",
                     backgroundColor: "red",
                     color: "white",
                     border: "none",
                     borderRadius: "5px",
-                    cursor: "pointer"
+                    cursor: "pointer",
+                    boxShadow: "0px 0px 5px gray",
+                    transition: "0.3s"
                   }}
                 >
                   Remove
@@ -151,7 +111,17 @@ function Orders() {
 
       <div
         style={{
-          marginTop: "30px",
+          marginTop: "20px",
+          fontSize: "20px",
+          fontWeight: "bold"
+        }}
+      >
+        Total Items: {cartItems.length}
+      </div>
+
+      <div
+        style={{
+          marginTop: "20px",
           fontSize: "24px",
           fontWeight: "bold"
         }}
@@ -159,21 +129,27 @@ function Orders() {
         Total: ₹{totalPrice}
       </div>
 
-      <button
-        onClick={() => navigate("/checkout")}
-        style={{
-          marginTop: "30px",
-          padding: "15px",
-          backgroundColor: "green",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          fontSize: "20px",
-          cursor: "pointer"
-        }}
-      >
-        Proceed To Checkout
-      </button>
+      {
+        cartItems.length > 0 && (
+
+          <button
+            onClick={() => navigate("/checkout")}
+            style={{
+              marginTop: "30px",
+              padding: "15px",
+              backgroundColor: "green",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              fontSize: "20px",
+              cursor: "pointer"
+            }}
+          >
+            Proceed To Checkout
+          </button>
+
+        )
+      }
 
     </div>
 
