@@ -1,14 +1,25 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Checkout() {
 
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
+
   const handleOrder = () => {
 
-    alert("Order Placed Successfully 🎉");
+    setLoading(true);
 
-    navigate("/home");
+    setTimeout(() => {
+
+      alert("Order Placed Successfully 🎉");
+
+      setLoading(false);
+
+      navigate("/home");
+
+    }, 2000);
 
   };
 
@@ -71,7 +82,7 @@ function Checkout() {
             cursor: "pointer"
           }}
         >
-          Place Order
+          {loading ? "Processing..." : "Place Order"}
         </button>
 
       </div>
