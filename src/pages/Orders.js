@@ -12,7 +12,12 @@ function Orders() {
     const savedCart =
       JSON.parse(localStorage.getItem("cart")) || [];
 
-    setCartItems(savedCart);
+    const updatedCart = savedCart.map((item) => ({
+      ...item,
+      quantity: item.quantity || 1
+    }));
+
+    setCartItems(updatedCart);
 
   }, []);
 
@@ -33,8 +38,43 @@ function Orders() {
 
   };
 
+  const increaseQuantity = (index) => {
+
+    const updatedCart = [...cartItems];
+
+    updatedCart[index].quantity += 1;
+
+    setCartItems(updatedCart);
+
+    localStorage.setItem(
+      "cart",
+      JSON.stringify(updatedCart)
+    );
+
+  };
+
+  const decreaseQuantity = (index) => {
+
+    const updatedCart = [...cartItems];
+
+    if (updatedCart[index].quantity > 1) {
+
+      updatedCart[index].quantity -= 1;
+
+      setCartItems(updatedCart);
+
+      localStorage.setItem(
+        "cart",
+        JSON.stringify(updatedCart)
+      );
+
+    }
+
+  };
+
   const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price,
+    (total, item) =>
+      total + item.price * item.quantity,
     0
   );
 
@@ -81,6 +121,47 @@ function Orders() {
                 <h2>{item.name}</h2>
 
                 <p>Price: ₹{item.price}</p>
+
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "15px",
+                    marginBottom: "15px"
+                  }}
+                >
+
+                  <button
+                    onClick={() => decreaseQuantity(index)}
+                    style={{
+                      padding: "8px 15px",
+                      backgroundColor: "orange",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "5px",
+                      cursor: "pointer"
+                    }}
+                  >
+                    -
+                  </button>
+
+                  <h3>{item.quantity}</h3>
+
+                  <button
+                    onClick={() => increaseQuantity(index)}
+                    style={{
+                      padding: "8px 15px",
+                      backgroundColor: "green",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "5px",
+                      cursor: "pointer"
+                    }}
+                  >
+                    +
+                  </button>
+
+                </div>
 
                 <button
                   onClick={() => removeItem(index)}

@@ -7,13 +7,21 @@ function Checkout() {
 
   const [loading, setLoading] = useState(false);
 
+  const [paymentMethod, setPaymentMethod] =
+    useState("Cash On Delivery");
+
   const handleOrder = () => {
 
     setLoading(true);
 
     setTimeout(() => {
 
-      alert("Order Placed Successfully 🎉");
+      alert(
+        "Order Placed Successfully 🎉\nPayment Method: " +
+        paymentMethod
+      );
+
+      localStorage.removeItem("cart");
 
       setLoading(false);
 
@@ -27,7 +35,9 @@ function Checkout() {
 
     <div
       style={{
-        padding: "30px"
+        padding: "30px",
+        backgroundColor: "#f5f5f5",
+        minHeight: "100vh"
       }}
     >
 
@@ -39,7 +49,11 @@ function Checkout() {
           flexDirection: "column",
           width: "400px",
           gap: "20px",
-          marginTop: "30px"
+          marginTop: "30px",
+          backgroundColor: "white",
+          padding: "30px",
+          borderRadius: "10px",
+          boxShadow: "0px 0px 10px gray"
         }}
       >
 
@@ -70,6 +84,33 @@ function Checkout() {
           }}
         />
 
+        <h3>Select Payment Method 💳</h3>
+
+        <select
+          value={paymentMethod}
+          onChange={(e) =>
+            setPaymentMethod(e.target.value)
+          }
+          style={{
+            padding: "12px",
+            fontSize: "16px"
+          }}
+        >
+
+          <option>
+            Cash On Delivery
+          </option>
+
+          <option>
+            UPI
+          </option>
+
+          <option>
+            Credit / Debit Card
+          </option>
+
+        </select>
+
         <button
           onClick={handleOrder}
           style={{
@@ -90,6 +131,7 @@ function Checkout() {
     </div>
 
   );
+
 }
 
 export default Checkout;

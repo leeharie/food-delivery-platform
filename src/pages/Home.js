@@ -5,6 +5,7 @@ function Home() {
 
   const [cartCount, setCartCount] = useState(0);
   const [search, setSearch] = useState("");
+  const [darkMode, setDarkMode] = useState(false);
 
   const navigate = useNavigate();
 
@@ -119,7 +120,13 @@ function Home() {
 
   return (
 
-    <div>
+    <div
+      style={{
+        backgroundColor: darkMode ? "#121212" : "white",
+        color: darkMode ? "white" : "black",
+        minHeight: "100vh"
+      }}
+    >
 
       {/* Navbar */}
 
@@ -192,6 +199,18 @@ function Home() {
           </Link>
 
           <button
+            onClick={() => setDarkMode(!darkMode)}
+            style={{
+              padding: "10px",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer"
+            }}
+          >
+            {darkMode ? "☀️ Light" : "🌙 Dark"}
+          </button>
+
+          <button
             onClick={handleLogout}
             style={{
               backgroundColor: "red",
@@ -258,7 +277,9 @@ function Home() {
                   padding: "20px",
                   borderRadius: "10px",
                   width: "250px",
-                  boxShadow: "0px 0px 10px gray"
+                  boxShadow: "0px 0px 10px gray",
+                  backgroundColor:
+                    darkMode ? "#1e1e1e" : "white"
                 }}
               >
 
